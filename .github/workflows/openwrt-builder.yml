@@ -81,6 +81,9 @@ jobs:
     - name: Compile the firmware
       id: compile
       run: |
+        mkdir openwrt/target/linux/mediatek/mt7981/base-files/lib/firmware
+        wget https://github.com/Star-Song/Actions-rax3000z-emmc/raw/refs/heads/main/eeprom/nx30pro_eeprom.bin -O openwrt/target/linux/mediatek/mt7981/base-files/lib/firmware/MT7981_iPAiLNA_EEPROM.bin
+        sed -i 's#./files/mt7981-default-eeprom/MT7981_iPAiLNA_EEPROM.bin##' openwrt/package/mtk/drivers/mt_wifi/Makefile
         cd openwrt
         make defconfig
         echo -e "$(nproc) thread compile"
